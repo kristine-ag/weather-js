@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manila Weather</title>
+
+    <style>
+        .flag{
+            margin-top: 50px;
+            margin-bottom: 50px;
+            border: 3px solid grey;
+            border-radius: 50px;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+
+    <%- include ('./navbar');  %>   
+</head>
+<body>
+    <main>
+        <center>
+            <h1>Kahimtang sa Manila</h1>
+            <div>
+                <img class = "flag" src="https://cdn-icons-png.flaticon.com/512/197/197561.png">
+                <h4><%= weathermnl[0].location.name %></h4>
+                <h3><%= weathermnl[0].current.temperature %> Celsius</h3>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Weather</th>
+                    <th scope="col">Icon</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    <% weathermnl[0].forecast.forEach(function(forecast, index) { %>
+                        <% if (index === 0) { %>
+                            <tr class="table-info">
+                                <th scope="row">Today, <%= forecast.shortday %></th>
+                        <% } else if (index === 1) { %>
+                            <tr class="table-primary">
+                                <th scope="row">Tomorrow, <%= forecast.shortday %></th>
+                        <% } else { %>
+                            <tr class="table-primary">
+                                <th scope="row"><%= forecast.day %>, <%= forecast.shortday %></th>
+                        <% } %>
+                            <td><%= forecast.date %></td>
+                            <td><%= forecast.skytextday %></td>
+                            <td><img src="<%= weathermnl[0].current.imageUrl %>"></td> <!-- Adjust icon as needed -->
+                        </tr>
+                    <% }); %>
+                    
+
+                </tbody>
+              </table>
+        </center>
+    </main>
+    
+
+
+    
+</body>
+</html>
